@@ -1,0 +1,93 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+
+class Arac
+{
+    public string Model { get; set; }
+    public int Yil { get; set; }
+    public string Marka { get; set; }
+    public DateTime EdinmeTarihi { get; set; }
+    public decimal EdinmeFiyati { get; set; }
+    public string Sahibi { get; set; }
+    public string SasiNumarasi { get; set; }
+
+    public Arac(string model, int yil, string marka, DateTime edinmeTarihi, decimal edinmeFiyati, string sahibi, string sasiNumarasi)
+    {
+        Model = model;
+        Yil = yil;
+        Marka = marka;
+        EdinmeTarihi = edinmeTarihi;
+        EdinmeFiyati = edinmeFiyati;
+        Sahibi = sahibi;
+        SasiNumarasi = sasiNumarasi;
+    }
+
+    public override string ToString()
+    {
+        return $"Şasi Numarası: {SasiNumarasi}\n" +
+               $"Sahibi: {Sahibi}\n" +
+               $"Edinme Tarihi: {EdinmeTarihi.ToShortDateString()}\n" +
+               $"Model Yılı: {Model}\n";
+    }
+}
+
+class Kisi
+{
+    public string Adi { get; set; }
+    public string Soyadi { get; set; }
+    public int DogumYili { get; set; }
+    public string TcKimlikNo { get; set; }
+    public List<Arac> Araclar { get; set; }
+
+    public Kisi(string adi, string soyadi, int dogumYili, string tcKimlikNo)
+    {
+        Adi = adi;
+        Soyadi = soyadi;
+        DogumYili = dogumYili;
+        TcKimlikNo = tcKimlikNo;
+        Araclar = new List<Arac>();
+    }
+
+    public void AracEkle(Arac arac)
+    {
+        Araclar.Add(arac);
+    }
+
+    public void ArabalarimiListele()
+    {
+        foreach (var arac in Araclar)
+        {
+            Console.WriteLine(arac);
+            Console.WriteLine("-----------");
+        }
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Kisi kisi1 = new Kisi("Murat", "Taşyürek", 1985, "12345678901");
+
+        // Araç bilgilerini ekle
+        Arac arac1 = new Arac("Model Focus", 2020, "Marka Ford", new DateTime(2020, 1, 1), 300000, "Ahmet Yılmaz", "A12345");
+        Arac arac2 = new Arac("Model Egea", 2019, "Marka Fiat", new DateTime(2019, 2, 15), 250000, "Fatma Demir", "B54321");
+        Arac arac3 = new Arac("Model 301", 2018, "Marka Peugeot", new DateTime(2018, 3, 20), 200000, "Mehmet Öz", "C67890");
+        Arac arac4 = new Arac("Model A3", 2021, "Marka Audi", new DateTime(2021, 5, 5), 350000, "Ayşe Korkmaz", "D98765");
+
+        // Araçları kişilere ekle
+        kisi1.AracEkle(arac1);
+        kisi1.AracEkle(arac2);
+        kisi1.AracEkle(arac3);
+        kisi1.AracEkle(arac4);
+
+        // Araçları listele
+        Console.WriteLine("Kişi arabalarımı listele:");
+        kisi1.ArabalarimiListele();
+    }
+}
